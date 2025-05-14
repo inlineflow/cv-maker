@@ -1,14 +1,17 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import Header from './Header'
+import Inputbox from './Inputbox';
 
 function App() {
-  const [count, setCount] = useState(0)
+  
+  const fields = [1, 2, 3];
 
   return (
     <>
-      <div className='bg-sky-500 w-96 h-96'></div>
+        <div className='grid-cols-1 w-96 h-96 bg-fuchsia-50 m-auto mt-12 p-4'>
+        <Header />
+        {fields.map(f => <Inputbox f={f} />)}
+        </div>
     </>
   )
 }
