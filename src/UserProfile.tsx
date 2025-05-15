@@ -6,7 +6,37 @@ export default function UserProfile() {
       <div className="container flex justify-end">
         <div className="bg-sky-950 rounded-full w-16 h-16 self-end"></div>
       </div>
-      <Inputbox label="Name" className="h-1" />
+      <div className="flex ">
+        <Inputbox
+          label="First Name"
+          className="h-1 mb-12"
+          labelClass=" text-base"
+        />
+        <Inputbox
+          label="Last Name"
+          className="h-1 mb-12"
+          labelClass=" text-base"
+        />
+      </div>
+      <div className="flex ">
+        <Inputbox
+          label="Address"
+          className="h-1 mb-12"
+          labelClass=" text-base"
+        />
+      </div>
+      <div className="flex">
+        <Inputbox
+          label="Phone Number"
+          className="h-1 mb-12"
+          labelClass=" text-base"
+        />
+        <Inputbox
+          label="Phone Number"
+          className="h-1 mb-12"
+          labelClass=" text-base"
+        />
+      </div>
     </div>
   );
 }

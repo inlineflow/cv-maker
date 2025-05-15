@@ -12,7 +12,7 @@ export default function Inputbox({ label, className, labelClass }: Props) {
 
   if (vis === "base") {
     return (
-      <div className="flex flex-col not-last:pb-8 ">
+      <div className="flex flex-col">
         <label htmlFor="fname" className={labelClass ?? "text-xl"}>
           {label}
         </label>

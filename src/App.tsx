@@ -11,11 +11,7 @@ function App() {
       <Header />
       <div className="grid-cols-1 max-w-dvw bg-sky-50 m-auto mt-4 p-4 grid gap-4 auto-rows-min ">
         <UserProfile />
-        <section
-          id="categories"
-          className="grid grid-cols-1 gap-4
-                     divide-y-2 divide-solid divide-sky-700"
-        >
+        <section id="categories" className="grid grid-cols-1 gap-4 ">
           {fields.map((f) => (
             <Inputbox label={f} />
           ))}
