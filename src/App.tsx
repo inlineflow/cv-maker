@@ -1,6 +1,7 @@
 import "./App.css";
 import Header from "./Header";
 import Inputbox from "./Inputbox";
+import UserProfile from "./UserProfile";
 
 function App() {
   const fields = ["Name", "Experience", "Education"];
@@ -8,10 +9,17 @@ function App() {
   return (
     <div className="mt-12 flex m-auto flex-col">
       <Header />
-      <div className="grid-cols-1 w-96 bg-green-50 m-auto mt-4 p-4 grid gap-4 auto-rows-min divide-y-2 divide-solid divide-green-200">
-        {fields.map((f) => (
-          <Inputbox label={f} value={f} />
-        ))}
+      <div className="grid-cols-1 max-w-dvw bg-sky-50 m-auto mt-4 p-4 grid gap-4 auto-rows-min ">
+        <UserProfile />
+        <section
+          id="categories"
+          className="grid grid-cols-1 gap-4
+                     divide-y-2 divide-solid divide-sky-700"
+        >
+          {fields.map((f) => (
+            <Inputbox label={f} />
+          ))}
+        </section>
       </div>
     </div>
   );
