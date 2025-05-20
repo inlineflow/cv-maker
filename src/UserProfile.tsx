@@ -33,9 +33,9 @@ export default function UserProfile() {
   };
 
   return (
-    <div className="">
-      <UserAvatarUpload />
-      <div className="bg-purple-700 w-full">
+    <>
+      <UserAvatarUpload gridPos="col-span-1" />
+      <div className="bg-purple-700 w-full row-span-1">
         <section id="personal-details" className="p-8">
           <div id="name-and-position" className="flex flex-col">
             {input("Name")}
@@ -50,6 +50,6 @@ export default function UserProfile() {
           </div>
         </section>
       </div>
-    </div>
+    </>
   );
 }

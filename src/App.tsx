@@ -9,7 +9,7 @@ function App() {
       <Header />
       <div className="grid grid-cols-[1fr_4fr]">
         <UserProfile />
-        <section id="education">
+        <section id="education" className="col-start-2">
           <DynamicList items={["hello", "World"]} title="Education" />
         </section>
       </div>
