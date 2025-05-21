@@ -1,6 +1,14 @@
-import type { FC } from "react";
+import {
+  cloneElement,
+  useState,
+  type Dispatch,
+  type FC,
+  type ReactElement,
+  type SetStateAction,
+} from "react";
 import PlusIcon from "./assets/DynamicListPlus.svg?react";
 type Style = "regular" | "small";
+type ChildConstructor = () => FC;
 const btnStyles: Record<Style, string> = {
   regular: "size-10 mt-2.5",
   small: "size-8 mt-1.5",
@@ -9,12 +17,27 @@ type Props = {
   items: string[] | FC[];
   title: string;
   style?: Style;
+  constructor?: ChildConstructor;
 };
 
-const makeButton = (style: Style) => {
+const addChild =
+  (
+    children: FC[],
+    setChildren: Dispatch<SetStateAction<FC[]>>,
+    constructor: ChildConstructor
+  ) =>
+  () => {
+    // if (children.length === 0) return;
+    // console.log("hello world");
+    // const newChild = Object.assign({}, children[0]);
+    // const newChild = cloneElement(children[0]({}));
+    setChildren([...children, constructor()]);
+  };
+
+const makeButton = (style: Style, children, setChildren, constructor) => {
   const btn = (
     <button
-      onClick={() => console.log("hello world")}
+      onClick={addChild(children, setChildren, constructor)}
       className="cursor-pointer"
     >
       <PlusIcon className={btnStyles[style]} />
@@ -24,7 +47,7 @@ const makeButton = (style: Style) => {
   return btn;
 };
 
-export const DynamicList = ({ items, title, style }: Props) => {
+export const DynamicList = ({ items, title, style, constructor }: Props) => {
   style = style ?? "regular";
   const header =
     style === "regular" ? (
@@ -33,7 +56,6 @@ export const DynamicList = ({ items, title, style }: Props) => {
       <h3 className="">{title}</h3>
     );
 
-  const btn = makeButton(style);
   // style === "regular" ? (
   //   <button className="cursor-pointer">
   //     <PlusIcon className="size-10 mt-2.5" />
@@ -44,7 +66,9 @@ export const DynamicList = ({ items, title, style }: Props) => {
   //   </button>
   // );
 
-  const children = makeChildren(items);
+  const baseChildren = makeChildren(items);
+  const [children, setChildren] = useState(baseChildren);
+  const btn = makeButton(style, children, setChildren, constructor);
 
   const hasChildren = children.length > 0;
   return (

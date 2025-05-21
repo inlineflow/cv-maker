@@ -4,6 +4,11 @@ import Header from "./Header";
 import UserProfile from "./UserProfile";
 
 function App() {
+  const qualificationsProps = {
+    items: [],
+    constructor: () => {},
+  };
+
   return (
     <main className="mt-12 flex m-auto flex-col w-256">
       <Header />
@@ -19,7 +24,11 @@ function App() {
         </div>
         <div id="qualifications">
           <section id="employment-history" className="col-start-2 p-5">
-            <DynamicList items={[]} title="Employment History" />
+            <DynamicList
+              items={[UserProfile]}
+              title="Employment History"
+              constructor={() => UserProfile}
+            />
           </section>
           <section id="education" className="col-start-2 p-5">
             <DynamicList items={[]} title="Education" />
