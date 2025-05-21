@@ -1,14 +1,7 @@
-import {
-  cloneElement,
-  useState,
-  type Dispatch,
-  type FC,
-  type ReactElement,
-  type SetStateAction,
-} from "react";
+import { useState, type Dispatch, type FC, type SetStateAction } from "react";
 import PlusIcon from "./assets/DynamicListPlus.svg?react";
 type Style = "regular" | "small";
-type ChildConstructor = () => FC;
+type ChildConstructor = (props?: any) => FC;
 const btnStyles: Record<Style, string> = {
   regular: "size-10 mt-2.5",
   small: "size-8 mt-1.5",
