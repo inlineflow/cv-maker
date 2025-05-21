@@ -24,7 +24,7 @@ export default function UserProfile() {
               placeholder:opacity-75
               border-none
               appearance-none
-              w-full
+              w-min
               outline-hidden ` + (fontSizeStyle ?? "")
           }
         />
