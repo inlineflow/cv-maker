@@ -10,7 +10,7 @@ export type ComponentMaker = <P extends object>(
 export type ComponentConfig = <P extends object>(
   Component: React.ComponentType<P>,
   props: P
-) => ComponentMaker;
+) => () => ComponentMaker;
 
 export type DynamicListProps<P extends object> = {
   items: React.ComponentType<P>[];
