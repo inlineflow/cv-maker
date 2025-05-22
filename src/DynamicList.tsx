@@ -1,38 +1,44 @@
 import { useState, type Dispatch, type FC, type SetStateAction } from "react";
 import PlusIcon from "./assets/DynamicListPlus.svg?react";
 type Style = "regular" | "small";
-type ChildConstructor = (props?: any) => FC;
+type ComponentMaker<P = object> = () => React.FC<P>;
 const btnStyles: Record<Style, string> = {
   regular: "size-10 mt-2.5",
   small: "size-8 mt-1.5",
 };
-type Props = {
-  items: string[] | FC[];
+export type DynamicListProps<T, P> = {
+  items: string[] | T;
   title: string;
   style?: Style;
-  constructor?: ChildConstructor;
+  makeComponent?: ComponentMaker<P>;
 };
 
 const addChild =
   (
     children: FC[],
     setChildren: Dispatch<SetStateAction<FC[]>>,
-    constructor: ChildConstructor
+    makeComponent: ComponentMaker
   ) =>
   () => {
     // if (children.length === 0) return;
     // console.log("hello world");
     // const newChild = Object.assign({}, children[0]);
     // const newChild = cloneElement(children[0]({}));
-    setChildren([...children, constructor()]);
+    setChildren([...children, makeComponent()]);
   };
 
-const makeButton = (style: Style, children, setChildren, constructor) => {
+const makeButton = (
+  style: Style,
+  children: FC[],
+  setChildren: Dispatch<SetStateAction<FC[]>>,
+  makeComponent: ComponentMaker | undefined
+) => {
+  const handler = makeComponent
+    ? addChild(children, setChildren, makeComponent)
+    : undefined;
+
   const btn = (
-    <button
-      onClick={addChild(children, setChildren, constructor)}
-      className="cursor-pointer"
-    >
+    <button onClick={handler} className="cursor-pointer">
       <PlusIcon className={btnStyles[style]} />
     </button>
   );
@@ -40,7 +46,12 @@ const makeButton = (style: Style, children, setChildren, constructor) => {
   return btn;
 };
 
-export const DynamicList = ({ items, title, style, constructor }: Props) => {
+export const DynamicList = <T, P>({
+  items,
+  title,
+  style,
+  makeComponent,
+}: DynamicListProps<T, P>) => {
   style = style ?? "regular";
   const header =
     style === "regular" ? (
@@ -61,7 +72,7 @@ export const DynamicList = ({ items, title, style, constructor }: Props) => {
 
   const baseChildren = makeChildren(items);
   const [children, setChildren] = useState(baseChildren);
-  const btn = makeButton(style, children, setChildren, constructor);
+  const btn = makeButton(style, children, setChildren, makeComponent);
 
   const hasChildren = children.length > 0;
   return (

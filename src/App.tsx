@@ -1,13 +1,18 @@
+import type { FC } from "react";
 import "./App.css";
-import { DynamicList } from "./DynamicList";
+import { DynamicList, type DynamicListProps } from "./DynamicList";
 import Header from "./Header";
 import UserProfile from "./UserProfile";
+import { SkillEntry } from "./SkillEntry";
+
+const TechSkillListProps: DynamicListProps<SkillEntry, () => SkillEntry>[] = [
+  { items: [], title: "Backend", style: "small" },
+  { items: [], title: "Frontend", style: "small" },
+  { items: [], title: "DevOps", style: "small" },
+];
 
 function App() {
-  const qualificationsProps = {
-    items: [],
-    constructor: () => {},
-  };
+  // const techSkills = {};
 
   return (
     <main className="mt-12 flex m-auto flex-col w-256">
@@ -17,9 +22,12 @@ function App() {
         <div className="p-5 ">
           <h2 className="text-2xl font-bold">Tech Skills</h2>
           <section id="tech-skills" className="flex flex-col col-start-1 gap-5">
-            <DynamicList items={[]} title="Backend" style="small" />
+            {TechSkillListProps.map((prop) => (
+              <DynamicList {...prop} makeComponent={(arg) => SkillEntry(arg)} />
+            ))}
+            {/* <DynamicList items={[]} title="Backend" style="small" />
             <DynamicList items={[]} title="Frontend" style="small" />
-            <DynamicList items={[]} title="DevOps" style="small" />
+            <DynamicList items={[]} title="DevOps" style="small" /> */}
           </section>
         </div>
         <div id="qualifications">
@@ -27,7 +35,7 @@ function App() {
             <DynamicList
               items={[UserProfile]}
               title="Employment History"
-              constructor={() => UserProfile}
+              makeComponent={() => UserProfile}
             />
           </section>
           <section id="education" className="col-start-2 p-5">
