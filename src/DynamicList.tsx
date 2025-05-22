@@ -1,10 +1,17 @@
 import { useState, type Dispatch, type JSX, type SetStateAction } from "react";
 import PlusIcon from "./assets/DynamicListPlus.svg?react";
 type Style = "regular" | "small";
-type ComponentMaker = <P extends object>(
+
+export type ComponentMaker = <P extends object>(
   Component: React.ComponentType<P>,
   props: P
 ) => () => JSX.Element;
+
+export type ComponentConfig = <P extends object>(
+  Component: React.ComponentType<P>,
+  props: P
+) => ComponentMaker;
+
 export type DynamicListProps<P extends object> = {
   items: React.ComponentType<P>[];
   title: string;

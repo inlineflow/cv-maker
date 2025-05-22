@@ -1,0 +1,2 @@
+// (props) => () => <Component {...props} />
+// (Component, props) => () => () => <Component {...props} />
