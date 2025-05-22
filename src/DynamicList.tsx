@@ -1,15 +1,15 @@
-import { useState, type Dispatch, type FC, type SetStateAction } from "react";
+import { useState, type Dispatch, type JSX, type SetStateAction } from "react";
 import PlusIcon from "./assets/DynamicListPlus.svg?react";
 type Style = "regular" | "small";
-type ComponentMaker<P extends object> = (props?: P) => React.FC<P>;
-type myProp = {};
-const x: ComponentMaker<myProp> = (props?: DynamicListProps<myProp>) => () =>
-  DynamicList(props);
+type ComponentMaker = <P extends object>(
+  Component: React.ComponentType<P>,
+  props: P
+) => () => JSX.Element;
 export type DynamicListProps<P extends object> = {
-  items: FC<P>[];
+  items: React.ComponentType<P>[];
   title: string;
   style?: Style;
-  makeComponent?: ComponentMaker<P>;
+  makeComponent?: ComponentMaker;
 };
 
 export const DynamicList = <P extends object>({
@@ -60,9 +60,9 @@ export const DynamicList = <P extends object>({
 
 const addChild =
   <P extends object>(
-    children: FC<P>[],
-    setChildren: Dispatch<SetStateAction<FC<P>[]>>,
-    makeComponent: ComponentMaker<P>
+    children: React.ComponentType<P>[],
+    setChildren: Dispatch<SetStateAction<React.ComponentType<P>[]>>,
+    makeComponent: ComponentMaker
   ) =>
   () => {
     // if (children.length === 0) return;
@@ -79,9 +79,9 @@ const btnStyles: Record<Style, string> = {
 
 const makeButton = <P extends object>(
   style: Style,
-  children: FC<P>[],
-  setChildren: Dispatch<SetStateAction<FC<P>[]>>,
-  makeComponent: ComponentMaker<P>
+  children: React.ComponentType<P>[],
+  setChildren: Dispatch<SetStateAction<React.ComponentType<P>[]>>,
+  makeComponent: ComponentMaker
 ) => {
   const handler = makeComponent
     ? addChild(children, setChildren, makeComponent)
