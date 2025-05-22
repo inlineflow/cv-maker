@@ -5,7 +5,7 @@ import Header from "./Header";
 import UserProfile from "./UserProfile";
 import { SkillEntry } from "./SkillEntry";
 
-const TechSkillListProps: DynamicListProps<SkillEntry, () => SkillEntry>[] = [
+const TechSkillListProps: DynamicListProps<SkillEntry>[] = [
   { items: [], title: "Backend", style: "small" },
   { items: [], title: "Frontend", style: "small" },
   { items: [], title: "DevOps", style: "small" },
