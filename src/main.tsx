@@ -3,7 +3,8 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.tsx";
 import { myFactory } from "./a.tsx";
-const Y = myFactory({ name: "bob", message: "hello" });
+import { Name } from "./Name.tsx";
+const Y = myFactory(Name, { name: "bob", message: "hello" });
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

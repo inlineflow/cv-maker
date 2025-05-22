@@ -1,5 +1,9 @@
+import type { MyProp } from "./a";
+
 export const Name = ({ name, message }: MyProp) => (
   <div>
-    {name}, {message}
+    <p>
+      {name}, {message}
+    </p>
   </div>
 );

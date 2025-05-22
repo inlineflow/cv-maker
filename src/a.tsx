@@ -3,7 +3,7 @@
 import type { FC } from "react";
 
 // const x: ComponentMaker<myProp> = (props?: myProp) => myComponent;
-type MyProp = { name?: string; message?: string };
+export type MyProp = { name?: string; message?: string };
 
 type ComponentMaker<P extends object> = (
   Component: FC<P>,
