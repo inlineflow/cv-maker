@@ -1,9 +1,10 @@
 import PlusIcon from "./assets/DynamicListPlus.svg?react";
-import { useEffect, useState, type FC } from "react";
-import { Input } from "./InputBox";
+import { useEffect, useState } from "react";
+import { InputBox } from "./InputBox";
 type Style = "regular" | "small";
 type Props = {
   style: Style;
+  InputBox: () => InputBox;
   callback: (e: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
@@ -12,12 +13,16 @@ const btnStyles: Record<Style, string> = {
   small: "size-8 mt-1.5",
 };
 
-export const InputButton = ({ style = "regular", callback }: Props) => {
-  const [adding, setAdding] = useState(false);
+export const InputButton = ({
+  style = "regular",
+  InputBox,
+  callback,
+}: Props) => {
+  const [canAdd, setCanAdd] = useState(false);
   useEffect(() => {
     window.addEventListener("click", () => {
-      if (adding) {
-        setAdding(false);
+      if (canAdd) {
+        setCanAdd(false);
       }
     });
   });
@@ -27,8 +32,11 @@ export const InputButton = ({ style = "regular", callback }: Props) => {
       <PlusIcon className={btnStyles[style]} />
     </button>
   );
-
-  const input = <Input fontColor="dark" label={} />;
-
+  const InputComponent = InputBox();
+  const input = (
+    <div>
+      <InputComponent onClick={onClickInput} />
+    </div>
+  );
   return btn;
 };

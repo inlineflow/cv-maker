@@ -1,7 +1,7 @@
-import { useState, type KeyboardEvent } from "react";
+import { useState, type FC, type KeyboardEvent } from "react";
 import type { FontColor } from "./types/font";
 
-type Props = {
+type IBProps = {
   placeholderText?: string;
   label: { for: string; text: string };
   fontSizeStyle?: string;
@@ -9,13 +9,15 @@ type Props = {
   width?: string;
 };
 
-export const Input = ({
+export type InputBox = FC<IBProps>;
+
+export const InputBox = ({
   placeholderText,
   fontSizeStyle,
   label,
   fontColor = "light",
   width,
-}: Props) => {
+}: IBProps) => {
   const [text, setText] = useState("");
   const [active, setActive] = useState(true);
   const lightFont = "text-white placeholder-white";

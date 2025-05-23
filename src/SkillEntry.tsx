@@ -1,4 +1,4 @@
-import { Input } from "./InputBox";
+import { InputBox } from "./InputBox";
 import type { FontColor } from "./types/font";
 
 type SKProps = {
@@ -12,7 +12,7 @@ type SKProps = {
 export function SkillEntry({ placeholder, fontColor }: SKProps) {
   return (
     <>
-      <Input
+      <InputBox
         placeholderText={placeholder}
         width="w-full"
         label={{ for: "skill-entry", text: "Enter your skill: " }}
