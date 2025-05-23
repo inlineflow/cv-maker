@@ -3,19 +3,18 @@ import PlusIcon from "./assets/DynamicListPlus.svg?react";
 type Style = "regular" | "small";
 
 export type DynamicListProps = {
-  items: FC[];
-  title: string;
+  items?: FC[];
+  title?: string;
   style?: Style;
   blueprint?: FC;
 };
 
 export const DynamicList = ({
-  items,
+  items = [],
   title,
-  style,
+  style = "regular",
   blueprint,
 }: DynamicListProps) => {
-  style = style ?? "regular";
   const header =
     style === "regular" ? (
       <h3 className="text-2xl font-bold">{title}</h3>

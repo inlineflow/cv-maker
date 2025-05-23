@@ -2,7 +2,7 @@ import type { FC, JSX } from "react";
 
 export type SKProps = {
   Content: FC;
-  className: string;
+  className?: string;
 };
 
 export type SkillEntry = ({ Content, className }: SKProps) => JSX.Element;
