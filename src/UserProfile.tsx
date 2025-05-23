@@ -1,52 +1,40 @@
+import { Input } from "./InputBox";
 import UserAvatarUpload from "./UserAvatarUpload";
 
 export default function UserProfile() {
-  const input = (
-    placeholderText: string,
-    fontSizeStyle?: string,
-    label?: string
-  ) => {
-    return (
-      <>
-        <label
-          htmlFor={placeholderText.toLowerCase().replace(" ", "-")}
-          className={label ? "" : "hidden"}
-        >
-          Funny text
-        </label>
-        <input
-          id={placeholderText.toLowerCase().replace(" ", "-")}
-          type="text"
-          placeholder={placeholderText}
-          className={
-            `text-white text-2xl
-             placeholder-white
-              placeholder:opacity-75
-              border-none
-              appearance-none
-              w-min
-              outline-hidden ` + (fontSizeStyle ?? "")
-          }
-        />
-      </>
-    );
-  };
-
   return (
     <>
       <UserAvatarUpload gridPos="col-span-1" />
       <div className="bg-purple-700 w-full row-span-1">
-        <section id="personal-details" className="p-8">
+        <section id="personal-details" className="p-6">
           <div id="name-and-position" className="flex flex-col">
-            {input("Name")}
-            {input("Job position")}
+            <Input
+              placeholderText="Name"
+              label={{ for: "abc", text: "Applicant's name" }}
+            />
+            <Input
+              placeholderText="Job position"
+              label={{ for: "desired-position", text: "Desired position" }}
+            />
           </div>
           <div className="flex mt-5 text-sm">
-            {input("Address", "text-[length:inherit]")}
+            <Input
+              placeholderText="Address"
+              fontSizeStyle="text-[length:inherit]"
+              label={{ for: "address", text: "Applicant's address" }}
+            />
           </div>
           <div className="flex mt-1.5 gap-2 text-sm">
-            {input("Phone number", "text-[length:inherit]")}
-            {input("Email", "text-[length:inherit]")}
+            <Input
+              placeholderText="Phone number"
+              fontSizeStyle="text-[length:inherit]"
+              label={{ for: "phone-number", text: "Applicant's phone number" }}
+            />
+            <Input
+              placeholderText="Email"
+              fontSizeStyle="text-[length:inherit]"
+              label={{ for: "email", text: "Applicant's email" }}
+            />
           </div>
         </section>
       </div>

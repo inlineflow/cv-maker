@@ -1,16 +1,26 @@
-import type { FC, JSX } from "react";
+import { Input } from "./InputBox";
+import type { FontColor } from "./types/font";
 
-export type SKProps = {
-  Content: FC;
+type SKProps = {
+  placeholder?: string;
+  fontColor?: FontColor;
   className?: string;
 };
 
-export type SkillEntry = ({ Content, className }: SKProps) => JSX.Element;
+// export type SkillEntry = ({ Content, className }: SKProps) => JSX.Element;
 
-export function SkillEntry({ Content, className }: SKProps) {
+export function SkillEntry({ placeholder, fontColor }: SKProps) {
   return (
-    <li className={className}>
-      <Content />
-    </li>
+    <>
+      <Input
+        placeholderText={placeholder}
+        width="w-full"
+        label={{ for: "skill-entry", text: "Enter your skill: " }}
+        fontColor={fontColor}
+      />
+    </>
+    // <li className={className}>
+    //   <Content />
+    // </li>
   );
 }

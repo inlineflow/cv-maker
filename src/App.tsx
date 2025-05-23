@@ -33,28 +33,16 @@ function App() {
               <DynamicList
                 {...prop}
                 blueprint={cf(SkillEntry, {
-                  Content: () => <p>Hello, world</p>,
+                  fontColor: "dark",
                 })}
               />
             ))}
           </section>
         </div>
-        <section id="qualifications">
+        <section id="qualifications" className="p-5">
           {QualificationsProps.map((prop) => (
             <DynamicList {...prop} blueprint={cf(QualInput, {})} />
           ))}
-          {/* <section id="employment-history" className="col-start-2 p-5">
-            <DynamicList
-              title="Employment History"
-              blueprint={cf(SkillEntry, { Content: () => <p>Hello, world</p> })}
-            />
-          </section>
-          <section id="education" className="col-start-2 p-5">
-            <DynamicList title="Education" />
-          </section>
-          <section id="projects" className="col-start-2 p-5">
-            <DynamicList title="Projects" />
-          </section> */}
         </section>
       </div>
     </main>
