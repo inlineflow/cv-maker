@@ -5,7 +5,6 @@ import {
   type FC,
   type SetStateAction,
 } from "react";
-import PlusIcon from "./assets/DynamicListPlus.svg?react";
 type Style = "regular" | "small";
 
 export type DynamicListProps = {
@@ -30,14 +29,6 @@ export const DynamicList = ({
 
   // const baseChildren = makeChildren(items);
   const [children, setChildren] = useState(items);
-  const [adding, setAdding] = useState(false);
-  useEffect(() => {
-    window.addEventListener("click", () => {
-      if (adding && children.length > 0) {
-        setAdding(false);
-      }
-    });
-  });
   const btn = blueprint
     ? makeButton(style, children, setChildren, blueprint, setAdding)
     : null;
@@ -80,9 +71,4 @@ const makeButton = (
   );
 
   return btn;
-};
-
-const btnStyles: Record<Style, string> = {
-  regular: "size-10 mt-2.5",
-  small: "size-8 mt-1.5",
 };
