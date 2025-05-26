@@ -1,9 +1,10 @@
 import PlusIcon from "./assets/DynamicListPlus.svg?react";
 import { useEffect, useRef, useState, type JSX } from "react";
+import type { IBProps } from "./InputBox";
 type Style = "regular" | "small";
 type Props = {
   style: Style;
-  InputBox: () => JSX.Element;
+  InputBox: (props: Partial<IBProps>) => JSX.Element;
   // callback: () => void;
 };
 
@@ -64,7 +65,9 @@ Props) => {
     </button>
   );
   // const InputComponent = InputBox();
-  const input = <InputBox />;
-  if (active) return <div ref={ref}>{input}</div>;
-  if (!active) return <div ref={ref}>{btn}</div>;
+  const input = <InputBox isActive={active} />;
+  const children = active ? input : btn;
+  return <div ref={ref}>{children}</div>;
+  // if (active) return <div ref={ref}>{input}</div>;
+  // if (!active) return <div ref={ref}>{btn}</div>;
 };

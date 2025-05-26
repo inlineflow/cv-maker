@@ -1,0 +1,4 @@
+    select t.rowid,t.*,ta.rowid, ta.date_spiska , ta.nomer_spiska  
+    from taccounts t, taccounts_arhiv ta
+    where t.id_applications = 678988'
+    and t.id_accounts = ta.id_accounts(+)

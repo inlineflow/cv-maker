@@ -1,22 +1,22 @@
-import { useState, type FC } from "react";
+import { type FC } from "react";
 import { InputButton } from "./InputButton";
 import { InputBox } from "./InputBox";
 import { cf } from "./ComponentFactory";
 type Style = "regular" | "small";
 
 export type DynamicListProps = {
-  items?: FC[];
+  children?: FC[];
   title?: string;
   style?: Style;
   blueprint?: FC;
 };
 
 export const DynamicList = ({
-  items: children = [],
+  children = [],
   title,
   style = "regular",
-  blueprint,
-}: DynamicListProps) => {
+}: // blueprint,
+DynamicListProps) => {
   const header =
     style === "regular" ? (
       <h3 className="text-2xl font-bold">{title}</h3>
@@ -26,7 +26,7 @@ export const DynamicList = ({
 
   // const baseChildren = makeChildren(items);
   // const [children, setChildren] = useState(items);
-  const btn = InputButton({
+  const Button = cf(InputButton, {
     style: "regular",
     InputBox: cf(InputBox, {
       label: { for: "mybox", text: "mybox" },
@@ -51,7 +51,7 @@ export const DynamicList = ({
           ))}
       </ul>
       {/* {blueprint && !adding && btn} */}
-      {btn}
+      <Button />
       {/* {null} */}
     </div>
   );
