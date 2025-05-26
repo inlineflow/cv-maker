@@ -7,7 +7,7 @@ import { cf } from "./ComponentFactory";
 import { QualInput } from "./QualificationInput";
 
 const TechSkillListProps: DynamicListProps[] = [
-  { title: "Backend", style: "small" },
+  { title: "Backend", style: "small", width: "w-full" },
   { title: "Frontend", style: "small" },
   { title: "DevOps", style: "small" },
 ];
@@ -32,6 +32,7 @@ function App() {
             {TechSkillListProps.map((prop) => (
               <DynamicList
                 {...prop}
+                width="w-min"
                 blueprint={cf(SkillEntry, {
                   fontColor: "dark",
                 })}

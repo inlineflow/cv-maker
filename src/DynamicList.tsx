@@ -7,6 +7,7 @@ export type DynamicListProps = {
   items?: FC[];
   title?: string;
   style?: Style;
+  width?: string;
   blueprint?: FC;
 };
 
@@ -14,6 +15,7 @@ export const DynamicList = ({
   items = [],
   title,
   style = "regular",
+  width = "w-max",
   blueprint,
 }: //
 DynamicListProps) => {
@@ -48,12 +50,12 @@ DynamicListProps) => {
 
   const hasChildren = children.length > 0;
   return (
-    <div className="w-max">
+    <div className="max-w-full">
       {header}
-      <ul className="list-none pl-5">
+      <ul className="list-none pl-5 flex flex-col gap-2.5">
         {hasChildren &&
           children.map((Child, index) => (
-            <li>
+            <li className="w-fit">
               <Child key={index} />
             </li>
           ))}

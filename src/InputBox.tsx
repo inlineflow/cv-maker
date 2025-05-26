@@ -18,7 +18,7 @@ export const InputBox = ({
   label,
   fontColor = "light",
   width,
-  isActive = false,
+  isActive = true,
 }: IBProps) => {
   const [text, setText] = useState("");
   const [active, setActive] = useState(isActive);
@@ -41,7 +41,7 @@ export const InputBox = ({
     const additionalStyles = [
       fontSizeStyle ?? "text-2xl",
       fontColor === "light" ? lightFont : darkFont,
-      placeholderText ? "" : "border-b-1 border-black border-solid",
+      placeholderText ? "" : "", //"border-b-1 border-black border-solid",
       width ?? "w-min",
     ];
     return (
