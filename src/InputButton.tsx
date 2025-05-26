@@ -1,11 +1,10 @@
 import PlusIcon from "./assets/DynamicListPlus.svg?react";
-import { useEffect, useState } from "react";
-import { InputBox } from "./InputBox";
+import { useEffect, useRef, useState, type JSX } from "react";
 type Style = "regular" | "small";
 type Props = {
   style: Style;
-  InputBox: () => InputBox;
-  callback: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  InputBox: () => JSX.Element;
+  // callback: () => void;
 };
 
 const btnStyles: Record<Style, string> = {
@@ -16,27 +15,56 @@ const btnStyles: Record<Style, string> = {
 export const InputButton = ({
   style = "regular",
   InputBox,
-  callback,
-}: Props) => {
-  const [canAdd, setCanAdd] = useState(false);
+}: // callback: onOutsideClick,
+// callback,
+Props) => {
+  const [active, setActive] = useState(false);
+  const ref = useRef<HTMLDivElement | null>(null);
+
   useEffect(() => {
-    window.addEventListener("click", () => {
-      if (canAdd) {
-        setCanAdd(false);
+    const handleClickOutside = (event: MouseEvent) => {
+      if (active) {
+        console.log(ref);
       }
-    });
-  });
+
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        setActive(false);
+      }
+    };
+
+    const timeout = setTimeout(() => {
+      window.addEventListener("click", handleClickOutside);
+    }, 0);
+
+    return () => {
+      clearTimeout(timeout);
+      window.removeEventListener("click", handleClickOutside);
+    };
+  }, [active]);
+
+  // useEffect(() => {
+  //   const handler = () => {
+  //     if (active) {
+  //       setTimeout(() => setActive(false), 50);
+  //     }
+  //   };
+  //   window.addEventListener("click", handler);
+  //   return () => window.removeEventListener("click", handler);
+  // });
 
   const btn = (
-    <button onClick={callback} className="cursor-pointer">
+    <button
+      onClick={(e) => {
+        e.stopPropagation();
+        setActive(true);
+      }}
+      className="cursor-pointer"
+    >
       <PlusIcon className={btnStyles[style]} />
     </button>
   );
-  const InputComponent = InputBox();
-  const input = (
-    <div>
-      <InputComponent onClick={onClickInput} />
-    </div>
-  );
-  return btn;
+  // const InputComponent = InputBox();
+  const input = <InputBox />;
+  if (active) return <div ref={ref}>{input}</div>;
+  if (!active) return <div ref={ref}>{btn}</div>;
 };

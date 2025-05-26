@@ -20,6 +20,7 @@ export const InputBox = ({
 }: IBProps) => {
   const [text, setText] = useState("");
   const [active, setActive] = useState(true);
+
   const lightFont = "text-white placeholder-white";
   const darkFont = "text-black placeholder-gray-400";
 
@@ -42,7 +43,7 @@ export const InputBox = ({
       width ?? "w-min",
     ];
     return (
-      <>
+      <div>
         <label htmlFor={label.for} className={"hidden"}>
           {label.text}
         </label>
@@ -59,15 +60,15 @@ export const InputBox = ({
              outline-hidden ` + additionalStyles.join(" ")
           }
         />
-      </>
+      </div>
     );
   }
 
   if (!active) {
     return (
-      <>
+      <div>
         <p>{text}</p>
-      </>
+      </div>
     );
   }
 };

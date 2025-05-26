@@ -1,10 +1,7 @@
-import {
-  useEffect,
-  useState,
-  type Dispatch,
-  type FC,
-  type SetStateAction,
-} from "react";
+import { useState, type FC } from "react";
+import { InputButton } from "./InputButton";
+import { InputBox } from "./InputBox";
+import { cf } from "./ComponentFactory";
 type Style = "regular" | "small";
 
 export type DynamicListProps = {
@@ -15,7 +12,7 @@ export type DynamicListProps = {
 };
 
 export const DynamicList = ({
-  items = [],
+  items: children = [],
   title,
   style = "regular",
   blueprint,
@@ -28,14 +25,22 @@ export const DynamicList = ({
     );
 
   // const baseChildren = makeChildren(items);
-  const [children, setChildren] = useState(items);
-  const btn = blueprint
-    ? makeButton(style, children, setChildren, blueprint, setAdding)
-    : null;
+  // const [children, setChildren] = useState(items);
+  const btn = InputButton({
+    style: "regular",
+    InputBox: cf(InputBox, {
+      label: { for: "mybox", text: "mybox" },
+      fontColor: "dark",
+    }),
+    // callback: (e) => console.log(e),
+  });
+  // const btn = blueprint
+  //   ? makeButton(style, children, setChildren, blueprint, setAdding)
+  //   : null;
 
   const hasChildren = children.length > 0;
   return (
-    <div>
+    <div className="w-max">
       {header}
       <ul className="list-none pl-5">
         {hasChildren &&
@@ -45,30 +50,9 @@ export const DynamicList = ({
             </li>
           ))}
       </ul>
-      {blueprint && !adding && btn}
+      {/* {blueprint && !adding && btn} */}
+      {btn}
       {/* {null} */}
     </div>
   );
-};
-
-const makeButton = (
-  style: Style,
-  children: FC[],
-  setChildren: Dispatch<SetStateAction<FC[]>>,
-  makeComponent: FC,
-  setAdding: Dispatch<SetStateAction<boolean>>
-) => {
-  const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
-    setChildren([...children, makeComponent]);
-    setAdding(true);
-  };
-
-  const btn = (
-    <button onClick={onClick} className="cursor-pointer">
-      <PlusIcon className={btnStyles[style]} />
-    </button>
-  );
-
-  return btn;
 };
