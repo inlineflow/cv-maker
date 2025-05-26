@@ -1,21 +1,21 @@
-import { type FC } from "react";
-import { InputButton } from "./InputButton";
-import { InputBox } from "./InputBox";
+import { useState, type FC } from "react";
 import { cf } from "./ComponentFactory";
+import { AddButton } from "./AddButton";
 type Style = "regular" | "small";
 
 export type DynamicListProps = {
-  children?: FC[];
+  items?: FC[];
   title?: string;
   style?: Style;
   blueprint?: FC;
 };
 
 export const DynamicList = ({
-  children = [],
+  items = [],
   title,
   style = "regular",
-}: // blueprint,
+  blueprint,
+}: //
 DynamicListProps) => {
   const header =
     style === "regular" ? (
@@ -25,17 +25,25 @@ DynamicListProps) => {
     );
 
   // const baseChildren = makeChildren(items);
-  // const [children, setChildren] = useState(items);
-  const Button = cf(InputButton, {
+  const [children, setChildren] = useState(items);
+  const Button = cf(AddButton, {
     style: "regular",
-    InputBox: cf(InputBox, {
-      label: { for: "mybox", text: "mybox" },
-      fontColor: "dark",
-    }),
-    // callback: (e) => console.log(e),
+    onClick: () => {
+      console.log([...children, blueprint!]);
+      setChildren([...children, blueprint!]);
+    },
   });
+
+  // const Button = cf(InputButton, {
+  //   style: "regular",
+  //   InputBox: cf(InputBox, {
+  //     label: { for: "mybox", text: "mybox" },
+  //     fontColor: "dark",
+  //   }),
+  //   // callback: (e) => console.log(e),
+  // });
   // const btn = blueprint
-  //   ? makeButton(style, children, setChildren, blueprint, setAdding)
+  //   ? makeButton(style, items, setChildren, blueprint)
   //   : null;
 
   const hasChildren = children.length > 0;
@@ -50,9 +58,7 @@ DynamicListProps) => {
             </li>
           ))}
       </ul>
-      {/* {blueprint && !adding && btn} */}
-      <Button />
-      {/* {null} */}
+      {blueprint && <Button />}
     </div>
   );
 };

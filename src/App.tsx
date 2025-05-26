@@ -41,7 +41,7 @@ function App() {
         </div>
         <section id="qualifications" className="p-5">
           {QualificationsProps.map((prop) => (
-            <DynamicList {...prop} blueprint={cf(QualInput, {})} />
+            <DynamicList {...prop} blueprint={cf(QualInput)} />
           ))}
         </section>
       </div>
