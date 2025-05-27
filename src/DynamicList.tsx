@@ -7,7 +7,7 @@ export type DynamicListProps = {
   items?: FC[];
   title?: string;
   style?: Style;
-  width?: string;
+  // width?: string;
   blueprint?: FC;
 };
 
@@ -15,7 +15,7 @@ export const DynamicList = ({
   items = [],
   title,
   style = "regular",
-  width = "w-max",
+  // width = "w-max",
   blueprint,
 }: //
 DynamicListProps) => {
