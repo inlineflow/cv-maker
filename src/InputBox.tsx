@@ -61,6 +61,7 @@ export const InputBox = ({
              appearance-none
              outline-hidden ` + additionalStyles.join(" ")
           }
+          autoFocus
         />
       </div>
     );
