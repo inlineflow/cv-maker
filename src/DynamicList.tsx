@@ -1,6 +1,8 @@
 import { useState, type FC } from "react";
 import { cf } from "./ComponentFactory";
 import { AddButton } from "./AddButton";
+import { DLItem } from "./DynamicListItem";
+import { generateUUID } from "./util/uuid";
 type Style = "regular" | "small";
 
 export type DynamicListProps = {
@@ -27,26 +29,19 @@ DynamicListProps) => {
     );
 
   // const baseChildren = makeChildren(items);
-  const [children, setChildren] = useState(items);
+  const [children, setChildren] = useState(
+    items.map((i) => ({ component: i, itemID: generateUUID() }))
+  );
   const Button = cf(AddButton, {
     style: "regular",
     onClick: () => {
       console.log([...children, blueprint!]);
-      setChildren([...children, blueprint!]);
+      setChildren([
+        ...children,
+        { component: blueprint!, itemID: generateUUID() },
+      ]);
     },
   });
-
-  // const Button = cf(InputButton, {
-  //   style: "regular",
-  //   InputBox: cf(InputBox, {
-  //     label: { for: "mybox", text: "mybox" },
-  //     fontColor: "dark",
-  //   }),
-  //   // callback: (e) => console.log(e),
-  // });
-  // const btn = blueprint
-  //   ? makeButton(style, items, setChildren, blueprint)
-  //   : null;
 
   const hasChildren = children.length > 0;
   return (
@@ -54,9 +49,15 @@ DynamicListProps) => {
       {header}
       <ul className="list-none pl-5 flex flex-col gap-2.5">
         {hasChildren &&
-          children.map((Child, index) => (
-            <li className="w-fit">
-              <Child key={index} />
+          children.map((Child) => (
+            // <DLItem
+            //   Component={Child.component}
+            //   itemId={Child.itemID}
+            //   sendFilter={}
+            //   key={Child.itemID}
+            // />
+            <li className="w-fit" key={Child.itemID}>
+              <Child.component />
             </li>
           ))}
       </ul>

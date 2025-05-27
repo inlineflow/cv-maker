@@ -11,7 +11,7 @@ type SKProps = {
 
 export function SkillEntry({ placeholder, fontColor }: SKProps) {
   return (
-    <div className="bg-purple-200 rounded-md border-2 p-2 border-none">
+    <div className="bg-purple-200 rounded-md border-2 p-2 border-none min-w-0.5">
       <InputBox
         placeholderText={placeholder}
         width="w-full"

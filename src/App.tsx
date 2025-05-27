@@ -5,9 +5,10 @@ import UserProfile from "./UserProfile";
 import { SkillEntry } from "./SkillEntry";
 import { cf } from "./ComponentFactory";
 import { QualInput } from "./QualificationInput";
+import { generateUUID } from "./util/uuid";
 
 const TechSkillListProps: DynamicListProps[] = [
-  { title: "Backend", style: "small", width: "w-full" },
+  { title: "Backend", style: "small" },
   { title: "Frontend", style: "small" },
   { title: "DevOps", style: "small" },
 ];
@@ -32,17 +33,22 @@ function App() {
             {TechSkillListProps.map((prop) => (
               <DynamicList
                 {...prop}
-                width="w-min"
+                // width="w-min"
                 blueprint={cf(SkillEntry, {
                   fontColor: "dark",
                 })}
+                key={generateUUID()}
               />
             ))}
           </section>
         </div>
         <section id="qualifications" className="p-5">
           {QualificationsProps.map((prop) => (
-            <DynamicList {...prop} blueprint={cf(QualInput)} />
+            <DynamicList
+              {...prop}
+              blueprint={cf(QualInput)}
+              key={generateUUID()}
+            />
           ))}
         </section>
       </div>
