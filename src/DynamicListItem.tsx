@@ -4,14 +4,14 @@ import type { UUID } from "./util/uuid";
 type DLItemProps = {
   itemId: UUID;
   Component: FC;
-  sendFilter: (predicateMaker: () => (id: UUID) => boolean) => void;
+  filterOut: (id: UUID) => void;
   className?: string;
 };
 
 export const DLItem = ({
   itemId,
   Component,
-  sendFilter,
+  filterOut,
   className,
 }: DLItemProps) => {
   const ref = useRef<HTMLLIElement | null>(null);
@@ -19,7 +19,7 @@ export const DLItem = ({
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (ref.current && !ref.current.contains(event.target as Node)) {
-        sendFilter(() => (id) => id !== itemId);
+        filterOut(itemId);
       }
     };
 

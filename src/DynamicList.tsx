@@ -32,7 +32,8 @@ DynamicListProps) => {
   const [children, setChildren] = useState(
     items.map((i) => ({ Component: i, itemID: generateUUID() }))
   );
-  // const [filterIDs, setFilterIDs] = useState<UUID[]>([])
+  const [filterIDs, setFilterIDs] = useState<UUID[]>([]);
+  const filterOut = (id: UUID) => setFilterIDs((prevIDs) => [...prevIDs, id]);
   // const [predicate, setPredicate] = useState<(item: UUID) => boolean>(
   //   () => () => true
   // );
@@ -47,8 +48,10 @@ DynamicListProps) => {
     },
   });
 
-  console.log(predicate.toString());
-  const filteredChildren = children.filter((item) => predicate(item.itemID));
+  const filteredChildren = children.filter(
+    (item) => !filterIDs.includes(item.itemID)
+  );
+  // const filteredChildren = children.filter((item) => predicate(item.itemID));
 
   const hasChildren = filteredChildren.length > 0;
   return (
@@ -66,7 +69,7 @@ DynamicListProps) => {
             <DLItem
               Component={child.Component}
               itemId={child.itemID}
-              sendFilter={setPredicate}
+              filterOut={filterOut}
               className="w-fit"
               key={child.itemID}
             />
