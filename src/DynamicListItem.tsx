@@ -4,17 +4,22 @@ import type { UUID } from "./util/uuid";
 type DLItemProps = {
   itemId: UUID;
   Component: FC;
-  sendFilter: (predicate: (id: UUID) => boolean) => void;
+  sendFilter: (predicateMaker: () => (id: UUID) => boolean) => void;
+  className?: string;
 };
 
-export const DLItem = ({ itemId, Component, sendFilter }: DLItemProps) => {
+export const DLItem = ({
+  itemId,
+  Component,
+  sendFilter,
+  className,
+}: DLItemProps) => {
   const ref = useRef<HTMLLIElement | null>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (ref.current && !ref.current.contains(event.target as Node)) {
-        sendFilter((id) => id !== itemId);
-        crypto.randomUUID();
+        sendFilter(() => (id) => id !== itemId);
       }
     };
 
@@ -28,9 +33,11 @@ export const DLItem = ({ itemId, Component, sendFilter }: DLItemProps) => {
     };
   });
 
-  return (
-    <li ref={ref}>
+  const rendered = (
+    <li ref={ref} className={className}>
       <Component />
     </li>
   );
+
+  return rendered;
 };
