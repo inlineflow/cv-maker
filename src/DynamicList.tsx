@@ -1,17 +1,17 @@
 import { useCallback, useState, type FC } from "react";
-import { cf } from "./ComponentFactory";
+import { cf, type BaseProps } from "./ComponentFactory";
 import { AddButton } from "./AddButton";
-import { DLItem } from "./DynamicListItem";
+// import { DLItem } from "./DynamicListItem";
 import { generateUUID, type UUID } from "./util/uuid";
 import { ValidityProvider } from "./DynamicListValidityProvider";
 type Style = "regular" | "small";
 
 export type DynamicListProps = {
-  items?: FC[];
+  items?: FC<BaseProps>[];
   title?: string;
   style?: Style;
   // width?: string;
-  blueprint?: FC;
+  blueprint?: FC<BaseProps>;
 };
 
 export const DynamicList = ({
@@ -33,8 +33,8 @@ DynamicListProps) => {
   const [children, setChildren] = useState(
     items.map((i) => ({ Component: i, itemID: generateUUID() }))
   );
-  const [filterIDs, setFilterIDs] = useState<UUID[]>([]);
-  const filterOut = (id: UUID) => setFilterIDs((prevIDs) => [...prevIDs, id]);
+  // const [filterIDs, setFilterIDs] = useState<UUID[]>([]);
+  // const filterOut = (id: UUID) => setFilterIDs((prevIDs) => [...prevIDs, id]);
   const Button = cf(AddButton, {
     style: "regular",
     onClick: () => {
@@ -46,12 +46,19 @@ DynamicListProps) => {
     },
   });
 
-  const handleReportValidity = useCallback((id: UUID, isValid: boolean) => {
-    if (!isValid) {
-      console.log("child id in parent: ", id);
-      setChildren((prev) => prev.filter((item) => item.itemID !== id));
-    }
-  }, []);
+  const handleReportValidity = useCallback(
+    (id: UUID, isValid: boolean) => {
+      if (!isValid) {
+        console.log("child id in parent: ", id);
+        console.log("regular children: ", children);
+        const newChildren = children.filter((item) => item.itemID !== id);
+        console.log("newChildren: ", newChildren);
+
+        setChildren((prev) => prev.filter((item) => item.itemID !== id));
+      }
+    },
+    [children, setChildren]
+  );
 
   // const filteredChildren = children.filter(
   //   (item) => !filterIDs.includes(item.itemID)
@@ -67,7 +74,7 @@ DynamicListProps) => {
           {hasChildren &&
             children.map((child) => (
               <li key={child.itemID} className="w-fit">
-                <child.Component />
+                <child.Component id={child.itemID} />
               </li>
               // <DLItem
               //   Component={child.Component}
@@ -79,7 +86,7 @@ DynamicListProps) => {
             ))}
         </ValidityProvider>
       </ul>
-      {blueprint && <Button />}
+      {blueprint && <Button id={generateUUID()} />}
     </div>
   );
 };

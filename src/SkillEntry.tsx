@@ -5,7 +5,7 @@ import type { FontColor } from "./types/font";
 import type { UUID } from "./util/uuid";
 
 type SKProps = {
-  id: UUID;
+  id?: UUID;
   placeholder?: string;
   fontColor?: FontColor;
   className?: string;
@@ -21,7 +21,7 @@ export function SkillEntry({ id, placeholder, fontColor }: SKProps) {
     const handleClickOutside = (event: MouseEvent) => {
       if (ref.current && !ref.current.contains(event.target as Node)) {
         console.log("child id: ", id);
-        reportValidity(id, false);
+        reportValidity(id!, false);
       }
     };
 

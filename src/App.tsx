@@ -35,7 +35,6 @@ function App() {
                 {...prop}
                 // width="w-min"
                 blueprint={cf(SkillEntry, {
-                  id: generateUUID(),
                   fontColor: "dark",
                 })}
                 key={generateUUID()}
