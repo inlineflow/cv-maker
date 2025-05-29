@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useValidity } from "./DynamicListValidityContext";
 import { InputBox } from "./InputBox";
 import type { FontColor } from "./types/font";
@@ -14,28 +14,19 @@ type SKProps = {
 // export type SkillEntry = ({ Content, className }: SKProps) => JSX.Element;
 
 export function SkillEntry({ id, placeholder, fontColor }: SKProps) {
+  const [skillText, setSkillText] = useState("");
   const reportValidity = useValidity();
   const ref = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (ref.current && !ref.current.contains(event.target as Node)) {
-        console.log("child id: ", id);
-        reportValidity(id!, false);
+        if (skillText === "") reportValidity(id!, false);
       }
     };
 
     window.addEventListener("click", handleClickOutside, true);
     return () => window.removeEventListener("click", handleClickOutside, true);
-
-    // const timeout = setTimeout(() => {
-    //   window.addEventListener("click", handleClickOutside);
-    // }, 0);
-
-    // return () => {
-    //   clearTimeout(timeout);
-    //   window.removeEventListener("click", handleClickOutside);
-    // };
   });
 
   return (
@@ -47,6 +38,8 @@ export function SkillEntry({ id, placeholder, fontColor }: SKProps) {
         placeholderText={placeholder}
         width="w-full"
         label={{ for: "skill-entry", text: "Enter your skill: " }}
+        text={skillText}
+        setText={setSkillText}
         fontColor={fontColor}
       />
     </div>

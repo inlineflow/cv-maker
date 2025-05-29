@@ -7,6 +7,8 @@ export type IBProps = {
   fontSizeStyle?: string;
   fontColor?: FontColor;
   width?: string;
+  text: string;
+  setText: React.Dispatch<React.SetStateAction<string>>;
   isActive?: boolean;
 };
 
@@ -18,9 +20,10 @@ export const InputBox = ({
   label,
   fontColor = "light",
   width,
+  text,
+  setText,
   isActive = true,
 }: IBProps) => {
-  const [text, setText] = useState("");
   const [active, setActive] = useState(isActive);
 
   const lightFont = "text-white placeholder-white";
