@@ -42,13 +42,13 @@ function App() {
             ))}
           </section>
         </div>
-        <section id="qualifications" className="p-5">
+        <section id="qualifications" className="pl-5 pt-5">
           {QualificationsProps.map((prop) => (
             <DynamicList
               {...prop}
               blueprint={cf(QualificationEntry)}
               key={generateUUID()}
-              className="max-w-1/2" //className="max-w-1/2"
+              className="max-w-full" //className="max-w-1/2"
             />
           ))}
         </section>

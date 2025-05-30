@@ -30,12 +30,9 @@ DynamicListProps) => {
       <h3 className="">{title}</h3>
     );
 
-  // const baseChildren = makeChildren(items);
   const [children, setChildren] = useState(
     items.map((i) => ({ Component: i, itemID: generateUUID() }))
   );
-  // const [filterIDs, setFilterIDs] = useState<UUID[]>([]);
-  // const filterOut = (id: UUID) => setFilterIDs((prevIDs) => [...prevIDs, id]);
   const Button = cf(AddButton, {
     style: "regular",
     onClick: () => {
@@ -62,11 +59,6 @@ DynamicListProps) => {
     [children, setChildren]
   );
 
-  // const filteredChildren = children.filter(
-  //   (item) => !filterIDs.includes(item.itemID)
-  // );
-  // const filteredChildren = children.filter((item) => predicate(item.itemID));
-
   const hasChildren = children.length > 0;
   return (
     <div className={className + " flex flex-col"}>
@@ -80,16 +72,13 @@ DynamicListProps) => {
         <ValidityProvider onReportValidity={handleReportValidity}>
           {hasChildren &&
             children.map((child) => (
-              <li key={child.itemID} className="w-fit">
+              <li
+                key={child.itemID}
+                className="w-fit min-w-2"
+                // className={style === "regular" ? "w-full" : "w-fit"}
+              >
                 <child.Component id={child.itemID} />
               </li>
-              // <DLItem
-              //   Component={child.Component}
-              //   itemId={child.itemID}
-              //   filterOut={filterOut}
-              //   className="w-fit"
-              //   key={child.itemID}
-              // />
             ))}
         </ValidityProvider>
       </ul>

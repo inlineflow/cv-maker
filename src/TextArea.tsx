@@ -23,9 +23,8 @@ export const TextArea = ({
         name={id}
         ref={ref}
         onChange={() => setText(ref.current!.value)}
-      >
-        {text}
-      </textarea>
+        value={text}
+      ></textarea>
     );
 
   return <p onClick={onClick}>{text}</p>;

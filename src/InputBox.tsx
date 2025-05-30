@@ -1,4 +1,4 @@
-import { useState, type FC, type KeyboardEvent } from "react";
+import { type FC, type KeyboardEvent } from "react";
 import type { FontColor } from "./types/font";
 
 export type IBProps = {
@@ -9,7 +9,8 @@ export type IBProps = {
   width?: string;
   text: string;
   setText: React.Dispatch<React.SetStateAction<string>>;
-  isActive?: boolean;
+  active?: boolean;
+  setActive: (val: boolean) => void;
 };
 
 export type InputBox = FC<IBProps>;
@@ -22,9 +23,10 @@ export const InputBox = ({
   width,
   text,
   setText,
-  isActive = true,
+  active = true,
+  setActive,
 }: IBProps) => {
-  const [active, setActive] = useState(isActive);
+  // const [active, setActive] = useState(isActive);
 
   const lightFont = "text-white placeholder-white";
   const darkFont = "text-black placeholder-gray-400";
@@ -53,6 +55,7 @@ export const InputBox = ({
           {label.text}
         </label>
         <input
+          autoComplete="off"
           onChange={handleUpdate(setText)}
           onKeyDown={handleEnter}
           value={text}
@@ -62,7 +65,8 @@ export const InputBox = ({
           className={
             `placeholder:opacity-75
              appearance-none
-             outline-hidden ` + additionalStyles.join(" ")
+             outline-hidden 
+             max-w-full ` + additionalStyles.join(" ")
           }
           autoFocus
         />

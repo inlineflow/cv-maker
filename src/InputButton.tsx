@@ -65,7 +65,7 @@ Props) => {
     </button>
   );
   // const InputComponent = InputBox();
-  const input = <InputBox isActive={active} />;
+  const input = <InputBox active={active} />;
   const children = active ? input : btn;
   return <div ref={ref}>{children}</div>;
   // if (active) return <div ref={ref}>{input}</div>;

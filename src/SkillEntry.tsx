@@ -14,6 +14,7 @@ type SKProps = PropsWithID<{
 
 export function SkillEntry({ id, placeholder, fontColor }: SKProps) {
   const [skillText, setSkillText] = useState("");
+  const [active, setActive] = useState(true);
   const reportValidity = useValidity();
   const ref = useRef<HTMLDivElement | null>(null);
 
@@ -35,11 +36,13 @@ export function SkillEntry({ id, placeholder, fontColor }: SKProps) {
     >
       <InputBox
         placeholderText={placeholder}
-        width="w-full"
+        // width="w-full"
         label={{ for: "skill-entry", text: "Enter your skill: " }}
         text={skillText}
         setText={setSkillText}
         fontColor={fontColor}
+        active={active}
+        setActive={(val) => setActive(val)}
       />
     </div>
     // <li className={className}>
