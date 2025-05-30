@@ -31,7 +31,7 @@ export function SkillEntry({ id, placeholder, fontColor }: SKProps) {
   return (
     <div
       ref={ref}
-      className="bg-purple-200 rounded-md border-2 p-2 border-none min-w-0.5"
+      className="bg-purple-200 rounded-md p-2 border-none min-w-0.5"
     >
       <InputBox
         placeholderText={placeholder}

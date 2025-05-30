@@ -48,7 +48,7 @@ function App() {
               {...prop}
               blueprint={cf(QualificationEntry)}
               key={generateUUID()}
-              width="max-w-1/2" //className="max-w-1/2"
+              className="max-w-1/2" //className="max-w-1/2"
             />
           ))}
         </section>

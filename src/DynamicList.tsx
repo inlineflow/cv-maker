@@ -11,7 +11,7 @@ export type DynamicListProps = {
   items?: FC<IDProp>[];
   title?: string;
   style?: Style;
-  width?: string;
+  className?: string;
   blueprint?: FC<IDProp>;
 };
 
@@ -19,7 +19,7 @@ export const DynamicList = ({
   items = [],
   title,
   style = "regular",
-  width = "max-w-full",
+  className = "max-w-full",
   blueprint,
 }: //
 DynamicListProps) => {
@@ -69,9 +69,14 @@ DynamicListProps) => {
 
   const hasChildren = children.length > 0;
   return (
-    <div className={width + " flex flex-col"}>
+    <div className={className + " flex flex-col"}>
       {header}
-      <ul className="list-none pl-5 flex flex-col gap-2.5">
+      <ul
+        className={
+          "list-none flex flex-col gap-2.5" +
+          (style === "regular" ? " pt-5" : "")
+        }
+      >
         <ValidityProvider onReportValidity={handleReportValidity}>
           {hasChildren &&
             children.map((child) => (
