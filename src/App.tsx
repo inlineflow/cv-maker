@@ -4,7 +4,7 @@ import Header from "./Header";
 import UserProfile from "./UserProfile";
 import { SkillEntry } from "./SkillEntry";
 import { cf } from "./ComponentFactory";
-import { QualInput } from "./QualificationInput";
+import { QualificationEntry } from "./QualificationEntry";
 import { generateUUID } from "./util/uuid";
 
 const TechSkillListProps: DynamicListProps[] = [
@@ -46,8 +46,9 @@ function App() {
           {QualificationsProps.map((prop) => (
             <DynamicList
               {...prop}
-              blueprint={cf(QualInput)}
+              blueprint={cf(QualificationEntry)}
               key={generateUUID()}
+              width="max-w-1/2" //className="max-w-1/2"
             />
           ))}
         </section>

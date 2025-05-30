@@ -3,6 +3,7 @@ type Style = "regular" | "small";
 type AddButtonProps = {
   style: Style;
   onClick: () => void;
+  centered?: boolean;
 };
 
 const btnStyles: Record<Style, string> = {
@@ -10,9 +11,16 @@ const btnStyles: Record<Style, string> = {
   small: "size-8 mt-1.5",
 };
 
-export const AddButton = ({ style = "regular", onClick }: AddButtonProps) => {
+export const AddButton = ({
+  style = "regular",
+  onClick,
+  centered = false,
+}: AddButtonProps) => {
+  const classes = [];
+  if (centered) classes.push("self-center justify-self-center");
+  classes.push("cursor-pointer");
   const btn = (
-    <button onClick={onClick} className="cursor-pointer">
+    <button onClick={onClick} className={classes.join(" ")}>
       <PlusIcon className={btnStyles[style]} />
     </button>
   );

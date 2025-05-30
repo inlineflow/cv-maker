@@ -2,14 +2,13 @@ import { useEffect, useRef, useState } from "react";
 import { useValidity } from "./DynamicListValidityContext";
 import { InputBox } from "./InputBox";
 import type { FontColor } from "./types/font";
-import type { UUID } from "./util/uuid";
+import type { PropsWithID } from "./types/prop";
 
-type SKProps = {
-  id?: UUID;
+type SKProps = PropsWithID<{
   placeholder?: string;
   fontColor?: FontColor;
   className?: string;
-};
+}>;
 
 // export type SkillEntry = ({ Content, className }: SKProps) => JSX.Element;
 

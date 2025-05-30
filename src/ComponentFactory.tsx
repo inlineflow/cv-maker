@@ -1,14 +1,11 @@
 import type { JSX } from "react";
-import { generateUUID, type UUID } from "./util/uuid";
-
-export type BaseProps = {
-  id: UUID;
-};
+import { generateUUID } from "./util/uuid";
+import type { IDProp } from "./types/prop";
 
 type ComponentFactory = <P extends object>(
   Component: React.ComponentType<P>,
   props?: P
-) => ({ id }: BaseProps) => JSX.Element;
+) => ({ id }: IDProp) => JSX.Element;
 
 // export const cf: ComponentFactory = (Component, props?) => () =>
 //   <Component {...(props ?? ({} as P))} />;
@@ -16,8 +13,8 @@ type ComponentFactory = <P extends object>(
 export const cf: ComponentFactory = <P extends object>(
   Component: React.ComponentType<P>,
   props?: P
-): (({ id }: BaseProps) => JSX.Element) => {
-  return ({ id }: BaseProps) => {
+): (({ id }: IDProp) => JSX.Element) => {
+  return ({ id }: IDProp) => {
     id = id ?? generateUUID();
     const newProps = { ...(props ?? ({} as P)), id: id };
     return <Component {...newProps} />;

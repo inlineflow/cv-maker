@@ -1,24 +1,25 @@
 import { useCallback, useState, type FC } from "react";
-import { cf, type BaseProps } from "./ComponentFactory";
+import { cf } from "./ComponentFactory";
 import { AddButton } from "./AddButton";
 // import { DLItem } from "./DynamicListItem";
 import { generateUUID, type UUID } from "./util/uuid";
 import { ValidityProvider } from "./DynamicListValidityProvider";
+import type { IDProp } from "./types/prop";
 type Style = "regular" | "small";
 
 export type DynamicListProps = {
-  items?: FC<BaseProps>[];
+  items?: FC<IDProp>[];
   title?: string;
   style?: Style;
-  // width?: string;
-  blueprint?: FC<BaseProps>;
+  width?: string;
+  blueprint?: FC<IDProp>;
 };
 
 export const DynamicList = ({
   items = [],
   title,
   style = "regular",
-  // width = "w-max",
+  width = "max-w-full",
   blueprint,
 }: //
 DynamicListProps) => {
@@ -44,6 +45,7 @@ DynamicListProps) => {
         { Component: blueprint!, itemID: generateUUID() },
       ]);
     },
+    centered: true,
   });
 
   const handleReportValidity = useCallback(
@@ -67,7 +69,7 @@ DynamicListProps) => {
 
   const hasChildren = children.length > 0;
   return (
-    <div className="max-w-full">
+    <div className={width + " flex flex-col"}>
       {header}
       <ul className="list-none pl-5 flex flex-col gap-2.5">
         <ValidityProvider onReportValidity={handleReportValidity}>
