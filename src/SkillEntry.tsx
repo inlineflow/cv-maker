@@ -36,7 +36,7 @@ export function SkillEntry({ id, placeholder, fontColor }: SKProps) {
     >
       <InputBox
         placeholderText={placeholder}
-        // width="w-full"
+        width="w-full"
         label={{ for: "skill-entry", text: "Enter your skill: " }}
         text={skillText}
         setText={setSkillText}
