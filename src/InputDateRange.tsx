@@ -12,7 +12,14 @@ export const InputDateRange = ({ htmlID }: InputDateProps) => {
   const [displayEndDate, setDisplayEndDate] = useState("");
   const startDate = moment(displayStartDate, dateFormat);
   const endDate = moment(displayEndDate, dateFormat);
-  const dateDiff = endDate.diff(startDate, "days");
+
+  const diffDates = (startDate, endDate): string => {
+    const totalMonths = endDate.diff(startDate, "months");
+    const years = Math.floor(totalMonths / 12);
+    const months = totalMonths % 12;
+    const yearsStr = years != 0 ? `${years} years` : "";
+    return `${yearsStr} ${months} months`;
+  };
 
   return (
     <div className="date-range">
@@ -43,7 +50,7 @@ export const InputDateRange = ({ htmlID }: InputDateProps) => {
           />
         </div>
       </div>
-      <p className="text-sm opacity-75">{dateDiff}</p>
+      <p className="text-sm opacity-75">{diffDates(startDate, endDate)}</p>
     </div>
   );
 };
