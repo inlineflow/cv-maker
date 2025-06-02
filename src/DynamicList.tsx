@@ -13,6 +13,7 @@ export type DynamicListProps = {
   style?: Style;
   className?: string;
   blueprint?: FC<IDProp>;
+  liWidth?: string;
 };
 
 export const DynamicList = ({
@@ -21,6 +22,7 @@ export const DynamicList = ({
   style = "regular",
   className = "max-w-full",
   blueprint,
+  liWidth = "w-fit",
 }: //
 DynamicListProps) => {
   const header =
@@ -74,7 +76,7 @@ DynamicListProps) => {
             children.map((child) => (
               <li
                 key={child.itemID}
-                className="w-fit min-w-2"
+                className={liWidth + " min-w-2"}
                 // className={style === "regular" ? "w-full" : "w-fit"}
               >
                 <child.Component id={child.itemID} />

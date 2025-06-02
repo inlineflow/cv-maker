@@ -3,12 +3,16 @@ import { InputBox } from "./InputBox";
 import { TextArea } from "./TextArea";
 import { useValidity } from "./DynamicListValidityContext";
 import type { PropsWithID } from "./types/prop";
+import { InputDateRange } from "./InputDateRange";
 
 type QualificationEntryProps = PropsWithID<{
   sectionName?: string;
 }>;
 
-export const QualificationEntry = ({ id }: QualificationEntryProps) => {
+export const QualificationEntry = ({
+  id,
+  sectionName,
+}: QualificationEntryProps) => {
   const [jobTitleText, setJobTitleText] = useState("");
   const [dateText, setDateText] = useState("");
   const [descriptionText, setDescriptionText] = useState("");
@@ -21,7 +25,7 @@ export const QualificationEntry = ({ id }: QualificationEntryProps) => {
       dateText.length === 0 &&
       descriptionText.length === 0
     ) {
-      setTimeout(() => reportValidity(id, val), 500);
+      reportValidity(id, val);
     } else {
       setIsActive(val);
     }
@@ -30,23 +34,32 @@ export const QualificationEntry = ({ id }: QualificationEntryProps) => {
 
   return (
     <div
-      className="bg-pink-100 p-5 flex flex-col gap-2"
+      className="bg-pink-100 p-5 flex flex-col gap-2 w-full"
       onDoubleClick={() => {
         if (!isActive) setActive(true);
       }}
     >
       <InputBox
-        label={{ for: "quailification-entry-title", text: "Enter your {x}: " }}
+        label={{
+          for: "quailification-entry-title",
+          text: `Enter your ${sectionName}: `,
+        }}
         text={jobTitleText}
         setText={setJobTitleText}
         fontColor="dark"
-        fontSizeStyle="text-sm"
+        fontSizeStyle="text-xl"
         placeholderText="Job Title"
         active={isActive}
         setActive={(val) => setActive(val)}
+        width="w-full"
+        fontWeight="font-bold"
       />
-      <InputBox
-        label={{ for: "quailification-entry-dates", text: "Enter your {x}: " }}
+      <InputDateRange htmlID="start-date" />
+      {/* <InputBox
+        label={{
+          for: "quailification-entry-dates",
+          text: `Enter your ${sectionName}: `,
+        }}
         text={dateText}
         setText={setDateText}
         fontColor="dark"
@@ -54,9 +67,9 @@ export const QualificationEntry = ({ id }: QualificationEntryProps) => {
         placeholderText="Job Title"
         active={isActive}
         setActive={(val) => setActive(val)}
-      />
+      /> */}
       <TextArea
-        id="quailification-entry-desc"
+        htmlID="quailification-entry-desc"
         text={descriptionText}
         setText={setDescriptionText}
         isActive={isActive}

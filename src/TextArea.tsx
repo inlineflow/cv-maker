@@ -1,7 +1,7 @@
 import { useRef } from "react";
 
 type TextAreaProps = {
-  id: string;
+  htmlID: string;
   text: string;
   setText: (s: string) => void;
   isActive: boolean;
@@ -9,7 +9,7 @@ type TextAreaProps = {
 };
 
 export const TextArea = ({
-  id,
+  htmlID: htmlID,
   text,
   setText,
   isActive,
@@ -18,13 +18,20 @@ export const TextArea = ({
   const ref = useRef<HTMLTextAreaElement | null>(null);
   if (isActive)
     return (
-      <textarea
-        id={id}
-        name={id}
-        ref={ref}
-        onChange={() => setText(ref.current!.value)}
-        value={text}
-      ></textarea>
+      <div className="w-full">
+        <label htmlFor={htmlID} hidden>
+          Enter position description
+        </label>
+        <textarea
+          id={htmlID}
+          name={htmlID}
+          ref={ref}
+          onChange={() => setText(ref.current!.value)}
+          value={text}
+          className="w-full outline-none"
+          placeholder={"Enter position description"}
+        ></textarea>
+      </div>
     );
 
   return <p onClick={onClick}>{text}</p>;

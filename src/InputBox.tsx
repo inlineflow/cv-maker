@@ -11,6 +11,7 @@ export type IBProps = {
   setText: React.Dispatch<React.SetStateAction<string>>;
   active?: boolean;
   setActive: (val: boolean) => void;
+  fontWeight?: string;
 };
 
 export type InputBox = FC<IBProps>;
@@ -25,6 +26,7 @@ export const InputBox = ({
   setText,
   active = true,
   setActive,
+  fontWeight = "font-normal",
 }: IBProps) => {
   // const [active, setActive] = useState(isActive);
 
@@ -77,7 +79,7 @@ export const InputBox = ({
   if (!active) {
     return (
       <div>
-        <p>{text}</p>
+        <p className={fontWeight}>{text}</p>
       </div>
     );
   }

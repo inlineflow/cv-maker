@@ -14,9 +14,9 @@ const TechSkillListProps: DynamicListProps[] = [
 ];
 
 const QualificationsProps: DynamicListProps[] = [
-  { title: "Employment History" },
-  { title: "Education" },
-  { title: "Projects" },
+  { title: "Employment History", liWidth: "w-full" },
+  { title: "Education", liWidth: "w-full" },
+  { title: "Projects", liWidth: "w-full" },
 ];
 
 function App() {
@@ -36,6 +36,7 @@ function App() {
                 // width="w-min"
                 blueprint={cf(SkillEntry, {
                   fontColor: "dark",
+                  label: prop.title!,
                 })}
                 key={generateUUID()}
               />
@@ -46,7 +47,9 @@ function App() {
           {QualificationsProps.map((prop) => (
             <DynamicList
               {...prop}
-              blueprint={cf(QualificationEntry)}
+              blueprint={cf(QualificationEntry, {
+                sectionName: prop.title,
+              })}
               key={generateUUID()}
               className="max-w-full" //className="max-w-1/2"
             />
