@@ -14,6 +14,7 @@ export type DynamicListProps = {
   className?: string;
   blueprint?: FC<IDProp>;
   liWidth?: string;
+  orientation?: "row" | "col";
 };
 
 export const DynamicList = ({
@@ -23,6 +24,7 @@ export const DynamicList = ({
   className = "max-w-full",
   blueprint,
   liWidth = "w-fit",
+  orientation = "col",
 }: //
 DynamicListProps) => {
   const header =
@@ -63,11 +65,13 @@ DynamicListProps) => {
 
   const hasChildren = children.length > 0;
   return (
-    <div className={className + " flex flex-col"}>
+    <div className={className + ` flex flex-col `}>
       {header}
       <ul
         className={
-          "list-none flex flex-col gap-2.5" +
+          `list-none flex flex-${orientation} ` +
+          (orientation === "row" ? " flex-wrap" : "") +
+          " gap-2.5" +
           (style === "regular" ? " pt-5" : "")
         }
       >

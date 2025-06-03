@@ -9,9 +9,7 @@ export type IBProps = {
   width?: string;
   text: string;
   setText: React.Dispatch<React.SetStateAction<string>>;
-  active?: boolean;
-  setActive: (val: boolean) => void;
-  fontWeight?: string;
+  onEnter?: () => void;
 };
 
 export type InputBox = FC<IBProps>;
@@ -24,9 +22,7 @@ export const InputBox = ({
   width,
   text,
   setText,
-  active = true,
-  setActive,
-  fontWeight = "font-normal",
+  onEnter,
 }: IBProps) => {
   // const [active, setActive] = useState(isActive);
 
@@ -40,47 +36,37 @@ export const InputBox = ({
 
   const handleEnter = (event: KeyboardEvent) => {
     if (event.key === "Enter") {
-      setActive(false);
+      if (onEnter) onEnter();
     }
   };
 
-  if (active) {
-    const additionalStyles = [
-      fontSizeStyle ?? "text-2xl",
-      fontColor === "light" ? lightFont : darkFont,
-      placeholderText ? "" : "", //"border-b-1 border-black border-solid",
-      width ?? "w-min",
-    ];
-    return (
-      <div>
-        <label htmlFor={label.for} className={"hidden"}>
-          {label.text}
-        </label>
-        <input
-          autoComplete="off"
-          onChange={handleUpdate(setText)}
-          onKeyDown={handleEnter}
-          value={text}
-          id={label.for}
-          type="text"
-          placeholder={placeholderText}
-          className={
-            `placeholder:opacity-75
+  const additionalStyles = [
+    fontSizeStyle ?? "text-2xl",
+    fontColor === "light" ? lightFont : darkFont,
+    placeholderText ? "" : "", //"border-b-1 border-black border-solid",
+    width ?? "w-min",
+  ];
+  return (
+    <div>
+      <label htmlFor={label.for} className={"hidden"}>
+        {label.text}
+      </label>
+      <input
+        autoComplete="off"
+        onChange={handleUpdate(setText)}
+        onKeyDown={handleEnter}
+        value={text}
+        id={label.for}
+        type="text"
+        placeholder={placeholderText}
+        className={
+          `placeholder:opacity-75
              appearance-none
              outline-hidden 
              max-w-full ` + additionalStyles.join(" ")
-          }
-          autoFocus
-        />
-      </div>
-    );
-  }
-
-  if (!active) {
-    return (
-      <div>
-        <p className={fontWeight}>{text}</p>
-      </div>
-    );
-  }
+        }
+        autoFocus
+      />
+    </div>
+  );
 };

@@ -1,4 +1,4 @@
-import moment from "moment";
+// import moment from "moment";
 
 type InputDateProps = {
   displayStartDate: string;
@@ -7,7 +7,7 @@ type InputDateProps = {
   setDisplayEndDate: (date: string) => void;
 };
 
-const dateFormat = "YYYY-MM-DD"; // ISO-8601
+// const dateFormat = "YYYY-MM-DD"; // ISO-8601
 
 export const InputDateRange = ({
   displayStartDate,
@@ -15,8 +15,8 @@ export const InputDateRange = ({
   displayEndDate,
   setDisplayEndDate,
 }: InputDateProps) => {
-  const startDate = moment(displayStartDate, dateFormat);
-  const endDate = moment(displayEndDate, dateFormat);
+  // const startDate = moment(displayStartDate, dateFormat);
+  // const endDate = moment(displayEndDate, dateFormat);
 
   return (
     <div className="date-range">

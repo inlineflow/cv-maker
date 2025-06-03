@@ -27,7 +27,7 @@ function App() {
       <Header />
       <div className="grid grid-cols-[1fr_4fr]">
         <UserProfile />
-        <div className="p-5 ">
+        <div className="p-5 max-w-full">
           <h2 className="text-2xl font-bold">Tech Skills</h2>
           <section id="tech-skills" className="flex flex-col col-start-1 gap-5">
             {TechSkillListProps.map((prop) => (
@@ -39,6 +39,7 @@ function App() {
                   label: prop.title!,
                 })}
                 key={generateUUID()}
+                orientation="row"
               />
             ))}
           </section>
