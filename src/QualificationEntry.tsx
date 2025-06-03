@@ -28,6 +28,7 @@ export const QualificationEntry = ({
   const [descriptionText, setDescriptionText] = useState("");
   const [displayStartDate, setDisplayStartDate] = useState("");
   const [displayEndDate, setDisplayEndDate] = useState("");
+  const [companyText, setCompanyText] = useState("");
   const [active, __setActive] = useState(true);
   const reportValidity = useValidity();
   const setActive = (val: boolean) => {
@@ -60,6 +61,21 @@ export const QualificationEntry = ({
           fontColor="dark"
           fontSizeStyle="text-xl"
           placeholderText="Job Title"
+          active={active}
+          setActive={(val) => setActive(val)}
+          width="w-full"
+          fontWeight="font-bold"
+        />
+        <InputBox
+          label={{
+            for: "quailification-entry-title",
+            text: `Enter your ${sectionName}: `,
+          }}
+          text={companyText}
+          setText={setCompanyText}
+          fontColor="dark"
+          fontSizeStyle="text-xl"
+          placeholderText="Company Name"
           active={active}
           setActive={(val) => setActive(val)}
           width="w-full"
@@ -112,6 +128,9 @@ export const QualificationEntry = ({
       <span> — </span>
       <span>{displayEndDate}</span>
     </div>
+    <p className="text-sm opacity-75">
+      {displayStartDate && displayEndDate && diffDates(startDate, endDate)}
+    </p>
     <p>{descriptionText}</p>
   </div>;
 };

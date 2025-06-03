@@ -47,9 +47,9 @@ export const InputDateRange = ({
           />
         </div>
       </div>
-      <p className="text-sm opacity-75">
+      {/* <p className="text-sm opacity-75">
         {displayStartDate && displayEndDate && diffDates(startDate, endDate)}
-      </p>
+      </p> */}
     </div>
   );
 
