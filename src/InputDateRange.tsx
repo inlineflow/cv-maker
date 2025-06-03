@@ -1,25 +1,22 @@
-import { useState } from "react";
 import moment from "moment";
 
 type InputDateProps = {
-  htmlID: string;
+  displayStartDate: string;
+  setDisplayStartDate: (date: string) => void;
+  displayEndDate: string;
+  setDisplayEndDate: (date: string) => void;
 };
 
 const dateFormat = "YYYY-MM-DD"; // ISO-8601
 
-export const InputDateRange = ({ htmlID }: InputDateProps) => {
-  const [displayStartDate, setDisplayStartDate] = useState("");
-  const [displayEndDate, setDisplayEndDate] = useState("");
+export const InputDateRange = ({
+  displayStartDate,
+  setDisplayStartDate,
+  displayEndDate,
+  setDisplayEndDate,
+}: InputDateProps) => {
   const startDate = moment(displayStartDate, dateFormat);
   const endDate = moment(displayEndDate, dateFormat);
-
-  const diffDates = (startDate, endDate): string => {
-    const totalMonths = endDate.diff(startDate, "months");
-    const years = Math.floor(totalMonths / 12);
-    const months = totalMonths % 12;
-    const yearsStr = years != 0 ? `${years} years` : "";
-    return `${yearsStr} ${months} months`;
-  };
 
   return (
     <div className="date-range">
@@ -50,7 +47,18 @@ export const InputDateRange = ({ htmlID }: InputDateProps) => {
           />
         </div>
       </div>
-      <p className="text-sm opacity-75">{diffDates(startDate, endDate)}</p>
+      <p className="text-sm opacity-75">
+        {displayStartDate && displayEndDate && diffDates(startDate, endDate)}
+      </p>
     </div>
   );
+
+  // if (!active)
+  //   return (
+  //     <div>
+  //       <span>{displayStartDate}</span>
+  //       <span> — </span>
+  //       <span>{displayEndDate}</span>
+  //     </div>
+  //   );
 };
