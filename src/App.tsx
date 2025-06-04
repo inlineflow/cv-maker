@@ -8,9 +8,9 @@ import { QualificationEntry } from "./QualificationEntry";
 import { generateUUID } from "./util/uuid";
 
 const TechSkillListProps: DynamicListProps[] = [
-  { title: "Backend", style: "small" },
-  { title: "Frontend", style: "small" },
-  { title: "DevOps", style: "small" },
+  { title: "Backend", style: "small", liWidth: "w-full" },
+  { title: "Frontend", style: "small", liWidth: "w-full" },
+  { title: "DevOps", style: "small", liWidth: "w-full" },
 ];
 
 const QualificationsProps: DynamicListProps[] = [
@@ -23,13 +23,13 @@ function App() {
   // const techSkills = {};
 
   return (
-    <main className="mt-12 flex m-auto flex-col w-256">
+    <main className="mt-12  m-auto  w-256">
       <Header />
-      <div className="grid grid-cols-[1fr_4fr]">
+      <div className="grid grid-cols-[1fr_4fr] max-w-full w-full">
         <UserProfile />
         <div className="p-5 max-w-full">
           <h2 className="text-2xl font-bold">Tech Skills</h2>
-          <section id="tech-skills" className="flex flex-col col-start-1 gap-5">
+          <section id="tech-skills" className=" flex-col col-start-1 gap-5">
             {TechSkillListProps.map((prop) => (
               <DynamicList
                 {...prop}

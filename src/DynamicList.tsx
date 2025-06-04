@@ -65,7 +65,8 @@ DynamicListProps) => {
 
   const hasChildren = children.length > 0;
   return (
-    <div className={className + ` flex flex-col `}>
+    // <div className={className + ` flex flex-col `}>
+    <div className={className + " flex-col"}>
       {header}
       <ul
         className={
@@ -80,7 +81,7 @@ DynamicListProps) => {
             children.map((child) => (
               <li
                 key={child.itemID}
-                className={liWidth + " min-w-2"}
+                className={liWidth + " min-w-0 max-w-full"}
                 // className={style === "regular" ? "w-full" : "w-fit"}
               >
                 <child.Component id={child.itemID} />
